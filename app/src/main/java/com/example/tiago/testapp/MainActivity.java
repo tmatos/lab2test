@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = this.getSharedPreferences(getString(R.string.chave_arquivo_config), Context.MODE_PRIVATE);
         String hostSalvo  = prefs.getString("host", "192.168.0.102");
+        Integer port = prefs.getInt("port", 33);
         editTextAddress.setText(hostSalvo);
+        editTextPort.setText(port.toString());
 
         //////////////////////////////////////////////////////
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 // salvar as info de conexao
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString( "host", host);
+                editor.putInt("port", port);
                 editor.commit();
 
             }
