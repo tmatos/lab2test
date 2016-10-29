@@ -12,6 +12,8 @@ import android.widget.TextView;
 public class LED extends AppCompatActivity {
 
     SharedPreferences prefs;
+    String host;
+    Integer port;
 
     Button btnLigar;
     Button btnDesligar;
@@ -23,20 +25,30 @@ public class LED extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_led);
 
-        prefs = this.getPreferences(Context.MODE_PRIVATE);
+        //prefs = this.getPreferences(Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences(getString(R.string.chave_arquivo_config), Context.MODE_PRIVATE);
 
         btnLigar = (Button) findViewById(R.id.btnLigar);
         btnDesligar = (Button) findViewById(R.id.btnDesligar);
         txtResposta = (TextView) findViewById(R.id.txtResposta);
 
+        host = prefs.getString("host", "192.168.0.103");
+        port = prefs.getInt("port", 33);
+
         btnLigar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                String host = prefs.getString("host", "192.168.0.103");
-                Integer port = prefs.getInt("port", 33);
-
                 Client cliente = new Client(host, port, txtResposta);
                 cliente.ligar_led();
+
+            }
+        });
+
+        btnDesigar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Client cliente = new Client(host, port, txtResposta);
+                cliente.desligar_led();
 
             }
         });

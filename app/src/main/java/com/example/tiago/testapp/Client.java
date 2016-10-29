@@ -125,5 +125,10 @@ public class Client extends AsyncTask<Void, Void, Void> {
         cmd = "1";
         this.execute();
     }
+
+    public void desligar_led() {
+        cmd = "0";
+        this.execute();
+    }
 }
 
