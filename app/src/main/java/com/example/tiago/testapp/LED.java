@@ -44,7 +44,7 @@ public class LED extends AppCompatActivity {
             }
         });
 
-        btnDesigar.setOnClickListener(new View.OnClickListener() {
+        btnDesligar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Client cliente = new Client(host, port, txtResposta);
