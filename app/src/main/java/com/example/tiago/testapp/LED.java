@@ -35,8 +35,6 @@ public class LED extends AppCompatActivity {
                 String host = prefs.getString("host", "192.168.0.103");
                 Integer port = prefs.getInt("port", 33);
 
-                String response = "";
-
                 Client cliente = new Client(host, port, txtResposta);
                 cliente.ligar_led();
 

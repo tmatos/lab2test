@@ -22,24 +22,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }*/
-
     TextView response;
     EditText editTextAddress, editTextPort;
     Button buttonConnect, buttonClear;
@@ -94,10 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Client myClient = new Client(host, port, response);
                 myClient.execute();
-                //myClient.
 
-                //Protocol protocol = new Protocol();
-                //protocol.enviarComando(host, port, "1");
 
                 // salvar as info de conexao
                 SharedPreferences.Editor editor = prefs.edit();
