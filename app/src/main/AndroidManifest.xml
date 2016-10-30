@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Temperatura" />
-        <activity android:name=".LED"></activity>
+        <activity android:name=".LED" />
+        <activity android:name=".ConfigActivity" />
+        <activity android:name=".GraficoActivity"></activity>
     </application>
 
 </manifest>

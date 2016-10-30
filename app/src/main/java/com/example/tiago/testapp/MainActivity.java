@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     SharedPreferences prefs;
+    String host;
+    Integer port;
 
 
     @Override
@@ -45,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         response = (TextView) findViewById(R.id.responseTextView);
 
         prefs = this.getSharedPreferences(getString(R.string.chave_arquivo_config), Context.MODE_PRIVATE);
-        String hostSalvo  = prefs.getString("host", "192.168.0.102");
-        Integer port = prefs.getInt("port", 33);
-        editTextAddress.setText(hostSalvo);
+        host  = prefs.getString("host", "192.168.0.102");
+        port = prefs.getInt("port", 33);
+
+        editTextAddress.setText(host);
         editTextPort.setText(port.toString());
 
         //////////////////////////////////////////////////////
@@ -61,24 +64,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
 
                 // validacao
-                if( editTextAddress.getText().equals("") )
+                if( editTextAddress.getText().toString().matches("") )
                 {
                     response.setText("Por favor, insira o endereço IP da placa.");
                     return;
                 }
-                else if( editTextPort.getText().equals("") )
+                else if( editTextPort.getText().toString().matches("") )
                 {
                     response.setText("Por favor, insira o número da porta na placa.");
                     return;
                 }
 
 
-                String host = editTextAddress.getText().toString();
-                Integer port = Integer.parseInt(editTextPort.getText().toString());
+                try {
+                    host = editTextAddress.getText().toString();
+                    port = Integer.parseInt(editTextPort.getText().toString());
 
-                Client myClient = new Client(host, port, response);
-                myClient.execute();
-
+                    Client myClient = new Client(host, port, response);
+                    myClient.execute();
+                }
+                catch (Exception e)
+                {
+                    response.setText("Erro.");
+                }
 
                 // salvar as info de conexao
                 SharedPreferences.Editor editor = prefs.edit();
@@ -144,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent intent = new Intent(this, GraficoActivity.class);
+            startActivity(intent);
+
             return true;
         }
 

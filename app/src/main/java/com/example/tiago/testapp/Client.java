@@ -32,45 +32,26 @@ public class Client extends AsyncTask<Void, Void, Void> {
         this.textResponse = textResponse;
     }
 
+    Client(String addr, int porta, TextView textResponse, String comando) {
+        host = addr;
+        port = porta;
+        this.textResponse = textResponse;
+        this.cmd = comando;
+    }
+
     @Override
     protected Void doInBackground(Void... arg0) {
-
 
         Socket socket = null;
 
         try {
             socket = new Socket(host, port);
 
-            /*
-            ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-            byte[] buffer = new byte[1024];
-
-            int bytesRead;
-            InputStream in = socket.getInputStream();
-
-            String cmd = "g";
-            out.write(cmd.getBytes());
-            */
-
-         /*
-          * notice: inputStream.read() will block if no data return
-          */
-        /*
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-                response += out.toString("UTF-8");
-            }
-
-            cmd = "b";
-            out.write(cmd.getBytes());
-            */
-
             // comunicacao
             try {
                 // stream de entrada e saída
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
 
                 if(cmd == "1" || cmd == "0")
                 {
@@ -84,7 +65,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
                     response = in.readLine();
                     out.println("b");
                 }
-
 
 
             }
@@ -130,5 +110,10 @@ public class Client extends AsyncTask<Void, Void, Void> {
         cmd = "0";
         this.execute();
     }
-}
 
+    public Integer get_temperatura() {
+        cmd = "g";
+        this.execute();
+        return Integer.parseInt(response);
+    }
+}

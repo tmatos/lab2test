@@ -25,22 +25,19 @@ public class LED extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_led);
 
-        //prefs = this.getPreferences(Context.MODE_PRIVATE);
         prefs = this.getSharedPreferences(getString(R.string.chave_arquivo_config), Context.MODE_PRIVATE);
+        host = prefs.getString("host", "192.168.0.103");
+        port = prefs.getInt("port", 33);
 
         btnLigar = (Button) findViewById(R.id.btnLigar);
         btnDesligar = (Button) findViewById(R.id.btnDesligar);
         txtResposta = (TextView) findViewById(R.id.txtResposta);
-
-        host = prefs.getString("host", "192.168.0.103");
-        port = prefs.getInt("port", 33);
 
         btnLigar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Client cliente = new Client(host, port, txtResposta);
                 cliente.ligar_led();
-
             }
         });
 
@@ -49,7 +46,6 @@ public class LED extends AppCompatActivity {
             public void onClick(View arg0) {
                 Client cliente = new Client(host, port, txtResposta);
                 cliente.desligar_led();
-
             }
         });
     }
